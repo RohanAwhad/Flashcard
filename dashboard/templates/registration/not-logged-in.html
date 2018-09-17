@@ -1,0 +1,10 @@
+{% extends 'basic_home_app/base.html' %}
+{% block content %}
+
+    <h2>You have not logged in.</h2>
+    <br>
+    <p><a href="{% url 'login' %}">Login</a> </p>
+    <p>Back to <a href="{% url 'basic_home_app:index' %}">home</a></p>
+
+
+{% endblock %}

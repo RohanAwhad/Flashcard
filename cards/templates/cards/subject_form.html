@@ -1,0 +1,14 @@
+{% extends 'basic_home_app/base.html' %}
+
+{% block content %}
+
+    <h2>Add the Subject</h2>
+    <br>
+    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% include 'dashboard/includes/form_template.html' %}
+
+        <button type="submit">Save</button>
+    </form>
+
+{% endblock %}

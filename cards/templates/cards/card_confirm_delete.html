@@ -1,0 +1,15 @@
+{% extends 'basic_home_app/base.html' %}
+
+{% block content %}
+
+
+    <br>
+    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>Are you sure you want to delete this card?</p>
+        <h6><input type="submit" value="Confirm"></h6>
+    </form>
+
+    <h5><a href="{% url 'cards:detail' fk %}">Go back</a></h5>
+
+{% endblock %}

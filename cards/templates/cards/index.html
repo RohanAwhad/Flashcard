@@ -1,0 +1,37 @@
+{% extends 'basic_home_app/base.html' %}
+{% block content %}
+
+    {% include "dashboard/includes/nav-bar.html" %}
+
+    {% if user.is_authenticated %}
+
+        {% if object_list %}
+
+            <h2>Subjects</h2>
+
+            <ul>
+                {% for subject in object_list %}
+                    <li>
+                        <a href="{% url 'cards:detail' subject.subject_id %}">{{ subject.name }}</a>
+                        &nbsp;&nbsp;&nbsp;
+                        <a href="{% url 'cards:edit-subject' subject.subject_id %}">Edit</a>
+                        &nbsp;&nbsp;&nbsp;
+                        <a href="{% url 'cards:delete-subject' subject.subject_id %}">Delete</a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+        {% else %}
+            <h3>You don't have any subjects created</h3>
+        {% endif %}
+
+        <h4><a href="{% url 'cards:add-subject' %}">Add subject</a> </h4>
+
+
+
+    {% else %}
+        <p>You are not Logged In</p>
+        <a href="{% url 'login' %}">Login here</a>
+    {% endif %}
+
+{% endblock %}

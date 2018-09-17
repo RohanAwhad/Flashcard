@@ -1,0 +1,12 @@
+{% extends 'basic_home_app/base.html' %}
+
+{% block content %}
+
+    {% for card in cards %}
+        <p>Question: {{ card.question }}</p>
+        <input type="button" onclick="alert('{{ card.answer }}')">Show Answer
+        {% include 'study/quiz_rating_form.html' %}
+    {% endfor %}
+
+
+{% endblock %}

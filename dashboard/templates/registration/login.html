@@ -1,0 +1,18 @@
+{% extends 'basic_home_app/base.html' %}
+
+{% block content %}
+
+    {% if form.errors %}
+        <p>There's something wrong with what you have enetered!</p>
+    {% endif %}
+
+    <h2>Login</h2>
+    <br>
+    <form class="form-horizontal" action="{% url 'login' %}" method="post"  enctype="multipart/form-data">
+        {% csrf_token %}
+        {% include 'dashboard/includes/form_template.html' %}
+        <input type="submit" value="Login">
+    </form>
+
+
+{% endblock %}

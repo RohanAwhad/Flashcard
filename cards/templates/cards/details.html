@@ -1,0 +1,37 @@
+{% extends 'basic_home_app/base.html' %}
+{% block content %}
+
+    {% include "dashboard/includes/nav-bar.html" %}
+
+    {% if user.is_authenticated %}
+
+        <h1>{{ subject.name }}</h1>
+        <h2>Number of cards: {{ subject.no_of_cards }}</h2>
+
+        <h4><a href="{% url 'cards:add-card' subject.subject_id %}">Add a Card</a> </h4>
+
+        {% if subject.card_set.all %}
+            {% for card in subject.card_set.all %}
+                <p>Question: {{ card.question }}
+                &nbsp;&nbsp;&nbsp;
+                Rating: {{ card.current_rating }}
+
+                &nbsp;&nbsp;&nbsp;
+                <a href="{% url 'cards:edit-card' subject.subject_id card.card_id %}">Edit</a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="{% url 'cards:delete-card' subject.subject_id card.card_id %}">Delete</a>
+                </p>
+            {% endfor %}
+
+        {% else %}
+            <h3>You don't have any cards created</h3>
+        {% endif %}
+
+
+
+    {% else %}
+        <p>You are not Logged In</p>
+        <a href="{% url 'login' %}">Login here</a>
+    {% endif %}
+
+{% endblock %}

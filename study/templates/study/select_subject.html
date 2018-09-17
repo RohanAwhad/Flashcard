@@ -1,0 +1,13 @@
+{% extends 'basic_home_app/base.html' %}
+
+{% block content %}
+
+    <br>
+    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% include 'dashboard/includes/form_template.html' %}
+
+        <button type="submit">Start</button>
+    </form>
+
+{% endblock %}

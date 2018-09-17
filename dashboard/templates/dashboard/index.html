@@ -1,0 +1,14 @@
+{% extends 'basic_home_app/base.html' %}
+{% block content %}
+
+    {% include "dashboard/includes/nav-bar.html" %}
+
+    {% if user.is_authenticated %}
+        <h2>Hey {{ user }}!</h2>
+        <p>You are in Dashboard app</p>
+    {% else %}
+        <p>You are not Logged In</p>
+        <a href="{% url 'login' %}">Login here</a>
+    {% endif %}
+
+{% endblock %}
