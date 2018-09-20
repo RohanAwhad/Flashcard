@@ -5,6 +5,32 @@ from .models import Subject, Card
 from .forms import SubjectForm, CardForm
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
+from rest_framework import views, response, status
+from .serializers import SubjectSerializer, CardSerializer
+
+
+#api/subject
+class SubjectList(views.APIView):
+
+        def get(self, request):
+            subjects = Subject.objects.all()
+            serializer = SubjectSerializer(subjects, many=True)
+            return response.Response(serializer.data)
+
+        def post(self, request):
+            pass
+
+
+#api/cards
+class CardList(views.APIView):
+
+    def get(self, request):
+        cards = Card.objects.all()
+        serializer = CardSerializer(cards, many=True)
+        return response.Response(serializer.data)
+
+    def post(self, request):
+        pass
 
 
 class IndexView(generic.ListView):

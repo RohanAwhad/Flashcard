@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.urlpatterns import format_suffix_patterns
+from cards import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,6 +26,10 @@ urlpatterns = [
     path('', include('dashboard.urls', namespace='dashboard')),
     path('about_us/', include('about_us.urls', namespace='about_us')),
     path('accounts/', include('django.contrib.auth.urls')),
-    #path('')
+    path('api/subjects', views.SubjectList.as_view()),
+    path('api/cards', views.CardList.as_view()),
     
 ]
+
+
+urlpatterns = format_suffix_patterns(urlpatterns)
