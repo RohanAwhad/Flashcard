@@ -21,3 +21,6 @@ class CardUpdateForm(forms.ModelForm):
     class Meta:
         model = Card
         fields = ['question', 'answer']
+
+
+

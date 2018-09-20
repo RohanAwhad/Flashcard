@@ -5,7 +5,8 @@
     <br>
     <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {% include 'dashboard/includes/form_template.html' %}
+
+        {{ form.as_p }}
 
         <button type="submit">Start</button>
     </form>

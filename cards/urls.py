@@ -13,5 +13,5 @@ urlpatterns = [
     path('<int:pk>/', views.DetailView.as_view(), name='detail'),
     path('<int:pk>/card/add', views.CardCreateView.as_view(), name='add-card'),
     path('<int:fk>/card/edit/<int:pk>', views.CardUpdate.as_view(), name='edit-card'),
-    path('<int:fk>/card/delete/<int:pk>', views.CardDelete.as_view(), name='delete-card')
+    path('<int:fk>/card/delete/<int:pk>', views.CardDelete.as_view(), name='delete-card'),
     ]

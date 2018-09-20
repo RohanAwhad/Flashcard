@@ -1,8 +1,17 @@
 from django import forms
-from cards import models
-from django.contrib.auth.admin import User
+from cards.models import Subject
 
 
-'''class SubjectSelectForm(forms.Form):
+class SubjectSelectForm(forms.Form):
 
-    select_subject = forms.ModelChoiceField(queryset=models.Subject.objects.filter(user_id=User));;;'''
+    name = forms.ModelChoiceField(queryset=Subject.objects.none().order_by('name'))
+
+    def __init__(self, *args, **kwargs):
+
+        user = kwargs.pop('user', None)
+        super(SubjectSelectForm,self).__init__(*args, **kwargs)
+        self.fields['name'].queryset = Subject.objects.filter(user_id=user)
+
+
+
+

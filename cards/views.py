@@ -120,3 +120,5 @@ class CardDelete(View):
         subject.no_of_cards -= 1
         subject.save()
         return redirect('cards:detail', subject.subject_id)
+
+
