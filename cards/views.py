@@ -91,7 +91,7 @@ class CardCreateView(View):
             answer = form.cleaned_data['answer']
             model = Card
             subject = Subject.objects.get(subject_id=self.kwargs['pk'])
-            subject.no_of_cards += 1
+            subject.no_of_cards = Card.objects.filter(subject_id=subject).count()
             subject.save()
             model.objects.create(subject_id=subject, question=question, answer=answer)
             return redirect('cards:detail', subject.subject_id)
@@ -117,7 +117,7 @@ class CardDelete(View):
         card = Card.objects.get(card_id=pk)
         card.delete()
         subject = Subject.objects.get(subject_id=fk)
-        subject.no_of_cards -= 1
+        subject.no_of_cards = Card.objects.filter(subject_id=subject).count()
         subject.save()
         return redirect('cards:detail', subject.subject_id)
 

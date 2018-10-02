@@ -4,7 +4,7 @@ from cards.models import Subject
 
 class SubjectSelectForm(forms.Form):
 
-    name = forms.ModelChoiceField(queryset=Subject.objects.none().order_by('name'))
+    name = forms.ModelChoiceField(queryset=Subject.objects.all().order_by('name'), widget=forms.Select())
 
     def __init__(self, *args, **kwargs):
 

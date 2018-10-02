@@ -25,6 +25,5 @@ class Card(models.Model):
     question = models.TextField()
     answer = models.TextField()
     current_rating = models.PositiveIntegerField(default=0)
-    previous_rating = models.PositiveIntegerField(default=0)
     no_of_turns_to_be_skipped = models.PositiveIntegerField(default=0)
     next_turn_no = models.PositiveIntegerField(default=0)

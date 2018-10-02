@@ -1,12 +1,21 @@
 {% extends 'basic_home_app/base.html' %}
 
 {% block content %}
+    <h1>Success</h1>
+<div class="container" id="container">
+    <div class="row" id="form"></div>
+    <div class="row">
+        <div class="col-lg-1" id="rating">
 
-    {% for card in cards %}
-        <p>Question: {{ card.question }}</p>
-        <input type="button" onclick="alert('{{ card.answer }}')">Show Answer
-        {% include 'study/quiz_rating_form.html' %}
-    {% endfor %}
+        </div>
+        <div class="col-lg-2" id="next"></div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script>
+        
+    </script>
 
 
 {% endblock %}
