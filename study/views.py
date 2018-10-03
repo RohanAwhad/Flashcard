@@ -53,8 +53,8 @@ def quiz(request, pk):
             j = random.randint(0, count-1)
             final_cards.append(cards[j])
         data = serializers.serialize('json' , final_cards, cls=DjangoJSONEncoder)
-        print (data)
-        return render(request, 'study/quiz.html', content_type=json,context={'cards_json':data})
+        data = json.dumps(data)
+        return render(request, 'study/quiz.html', content_type=json,context={'data':data})
 
 
 '''

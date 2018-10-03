@@ -1,21 +1,75 @@
 {% extends 'basic_home_app/base.html' %}
 
 {% block content %}
-    <h1>Success</h1>
 <div class="container" id="container">
-    <div class="row" id="form"></div>
-    <div class="row">
-        <div class="col-lg-1" id="rating">
+    <div class="row" id="q&a">
 
+    </div>
+    <div class="row">
+        <div class="col-lg-1" id="flip">
+            <button id="flip-button">Flip</button>
         </div>
-        <div class="col-lg-2" id="next"></div>
+        <div class="col-lg-2" id="rating">
+            <form id="rating-form" method="post" action="" >
+                <p>Rating</p>
+                <input type="radio" value="1" id="rating-1" name="rating">1
+                <input type="radio" value="2" id="rating-2" name="rating">2
+                <input type="radio" value="3" id="rating-3" name="rating">3
+                <input type="radio" value="4" id="rating-4" name="rating">4
+                <input type="radio" value="5" id="rating-5" name="rating">5
+            </form>
+        </div>
+        <div class="col-lg-3" id="next">
+            <button id="next-button" >Next</button>
+        </div>
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script>
-        var received_data = {{ cards_json | safe }};
-        console.log(received_data);
+        var received_data = "{{ data | safe }}";
+        document.getElementById('q&a').innerHTML = received_data
+        const data = JSON.parse(received_data);
+        var index = 0;
+        var flip = 0;
+
+        document.getElementById('next-button').addEventListener('onclick', function () {
+            if (index >= data.length){
+
+            }
+            else{
+                document.getElementById('next-button').style.visibility = "hidden";
+                document.getElementById('rating-form').style.visibility = "hidden";
+
+                index++
+            }
+        });
+
+        document.getElementById('rating-form').addEventListener('onchange', function () {
+           document.getElementById('next-button').style.visibility='visible';
+        });
+
+        document.getElementById('flip-button').addEventListener('onclick', function () {
+            if (flip == 0){
+                document.getElementById('q&a').innerHTML = '<div> <p>' +
+                    data[index].answer + '</p></div>';
+                flip = 1;
+            }
+            else{
+                document.getElementById('q&a').innerHTML = '<div> <p>' +
+                    data[index].question + '</p></div>';
+                flip = 0;
+            }
+            document.getElementById('rating-form').style.visibility = 'visible';
+        });
+
+        document.getElementById('container').addEventListener('onload', function () {
+            document.getElementById('q&a').innerHTML = '<div> <p>' +
+                data[index].question + '</p></div>';
+
+            document.getElementById('rating-form').style.visibility = 'hidden';
+            document.getElementById('next-button').style.visibility = 'hidden';
+        });
+
     </script>
 
 
