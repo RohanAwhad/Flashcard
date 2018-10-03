@@ -27,3 +27,14 @@ class Card(models.Model):
     current_rating = models.PositiveIntegerField(default=0)
     no_of_turns_to_be_skipped = models.PositiveIntegerField(default=0)
     next_turn_no = models.PositiveIntegerField(default=0)
+
+    def as_json(self):
+        return dict (
+            subject_id=self.subject_id,
+            card_id=self.card_id,
+            question=self.question,
+            answer=self.answer,
+            current_rating=self.current_rating,
+            no_of_turns_to_be_skipped=self.no_of_turns_to_be_skipped,
+            next_turn_no=self.next_turn_no
+        )

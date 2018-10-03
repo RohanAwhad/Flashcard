@@ -1,5 +1,6 @@
 import logging
 
+from django.core import serializers
 from django.shortcuts import render, redirect
 
 
@@ -7,6 +8,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from . forms import SubjectSelectForm
 from cards import models
+
 import random
 import json
 from django.core.serializers.json import DjangoJSONEncoder
@@ -45,17 +47,18 @@ def quiz(request, pk):
     if count >= 20:
         cards = models.Card.objects.filter(subject_id=subject, next_turn_no__lte=subject.quiz_count)
         count = len(cards)
-        print (cards[0])
-
-        return render(request, 'study/quiz.html', {'cards_json':cards})
-
-
-'''
         cards = list(cards)
         final_cards = list()
         for i in range(0, 20):
             j = random.randint(0, count-1)
             final_cards.append(cards[j])
+        data = serializers.serialize('json' , final_cards, cls=DjangoJSONEncoder)
+        print (data)
+        return render(request, 'study/quiz.html', content_type=json,context={'cards_json':data})
+
+
+'''
+
             logger = logging.getLogger(__name__)
             logger.error(j)
 
