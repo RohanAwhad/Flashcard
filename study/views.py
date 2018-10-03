@@ -1,3 +1,5 @@
+import logging
+
 from django.shortcuts import render, redirect
 
 
@@ -22,17 +24,18 @@ class SubjectSelectFormView(View):
     template_name = 'study/select_subject.html'
 
     def get(self, request):
-        form = self.form_class(user=request.user)
+        form = self.form_class( user=request.user)
         return render(request, self.template_name, {'form':form})
 
 
     def post(self, request):
-        form = self.form_class(request.POST)
+        form = self.form_class(request.POST, user=request.user)
         if form.is_valid():
-            subject = models.Subject.objects.get(name=form['name'])
-            return HttpResponseRedirect('study:quiz', subject.subject_id)
+            subject = models.Subject.objects.get(name=form.cleaned_data['name'], user_id=request.user)
+
+            return redirect('study:quiz', subject.subject_id)
         else:
-            return HttpResponse('<h1>Failed</h1>')
+            return render(request, self.template_name, {'form':form})
 
 
 
@@ -42,16 +45,22 @@ def quiz(request, pk):
     if count >= 20:
         cards = models.Card.objects.filter(subject_id=subject, next_turn_no__lte=subject.quiz_count)
         count = len(cards)
+        print (cards[0])
+
+        return render(request, 'study/quiz.html', {'cards_json':cards})
+
+
+'''
         cards = list(cards)
         final_cards = list()
-        for i in range(0, 20): final_cards.append(cards[random.randint(0, count)])
+        for i in range(0, 20):
+            j = random.randint(0, count-1)
+            final_cards.append(cards[j])
+            logger = logging.getLogger(__name__)
+            logger.error(j)
 
-        final_cards_json = json.dumps(final_cards, cls=DjangoJSONEncoder)
-
-        return render(request, 'study/quiz.html', {'cards_json':final_cards_json})
-
-
-
+        final_cards_json = json.dumps(final_cards)
+'''
 
 
 
